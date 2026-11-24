@@ -40,8 +40,8 @@
   <script>
     (() => {
       "use strict";
-      const SALT = Uint8Array.from(atob("Q19FD0KcVTQ36Cj0wQTnJQ=="), c => c.charCodeAt(0));
-      const IV = Uint8Array.from(atob("kz2PItKnWPZ8s9MN"), c => c.charCodeAt(0));
+      const SALT = Uint8Array.from(atob("woByCV8UO4GB0f+U+ynH6Q=="), c => c.charCodeAt(0));
+      const IV = Uint8Array.from(atob("7lb5/ajTH2lFZ+9z"), c => c.charCodeAt(0));
       const ITERATIONS = 210000;
       const form = document.getElementById("unlockForm");
       const input = document.getElementById("password");
@@ -79,9 +79,9 @@
             ["decrypt"]
           );
           const payloadSources = [
-            "https://fastly.jsdelivr.net/gh/197954753-cmyk/jinhui-channel-archive-7k3n9@main/payload-v3.bin",
-            "https://raw.githubusercontent.com/197954753-cmyk/jinhui-channel-archive-7k3n9/main/payload-v3.bin",
-            "payload-v3.bin"
+            "https://fastly.jsdelivr.net/gh/197954753-cmyk/jinhui-channel-archive-7k3n9@main/payload-v4.bin",
+            "https://raw.githubusercontent.com/197954753-cmyk/jinhui-channel-archive-7k3n9/main/payload-v4.bin",
+            "payload-v4.bin"
           ];
           let encrypted;
           for (const source of payloadSources) {
