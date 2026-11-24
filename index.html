@@ -40,8 +40,8 @@
   <script>
     (() => {
       "use strict";
-      const SALT = Uint8Array.from(atob("9NspwGOz/T/lwrJLc64Bug=="), c => c.charCodeAt(0));
-      const IV = Uint8Array.from(atob("kFODee02+Uv6KQn6"), c => c.charCodeAt(0));
+      const SALT = Uint8Array.from(atob("bPW1eguCB6KtHndSLJBZog=="), c => c.charCodeAt(0));
+      const IV = Uint8Array.from(atob("pmu0dcXcnohiMXDE"), c => c.charCodeAt(0));
       const ITERATIONS = 210000;
       const form = document.getElementById("unlockForm");
       const input = document.getElementById("password");
@@ -79,22 +79,19 @@
             ["decrypt"]
           );
           const payloadSources = [
-            "https://fastly.jsdelivr.net/gh/197954753-cmyk/jinhui-channel-archive-7k3n9@9f262db/payload.bin",
-            "https://raw.githubusercontent.com/197954753-cmyk/jinhui-channel-archive-7k3n9/9f262db/payload.bin",
-            "payload.bin"
+            "https://fastly.jsdelivr.net/gh/197954753-cmyk/jinhui-channel-archive-7k3n9@main/payload-v2.bin",
+            "https://raw.githubusercontent.com/197954753-cmyk/jinhui-channel-archive-7k3n9/main/payload-v2.bin",
+            "payload-v2.bin"
           ];
           let encrypted;
-          for (let sourceIndex = 0; sourceIndex < payloadSources.length; sourceIndex += 1) {
-            const source = payloadSources[sourceIndex];
+          for (const source of payloadSources) {
             const controller = new AbortController();
             const timeout = setTimeout(() => controller.abort(), 8000);
             try {
               const response = await fetch(source, { signal: controller.signal });
               if (!response.ok) continue;
               encrypted = await response.arrayBuffer();
-              if (encrypted.byteLength > 0) {
-                break;
-              }
+              if (encrypted.byteLength > 0) break;
             } catch (_) {
               encrypted = undefined;
             } finally {
