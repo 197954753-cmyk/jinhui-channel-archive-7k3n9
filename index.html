@@ -40,8 +40,8 @@
   <script>
     (() => {
       "use strict";
-      const SALT = Uint8Array.from(atob("U6UkMaEz1vF/7MLciLozvg=="), c => c.charCodeAt(0));
-      const IV = Uint8Array.from(atob("DwmbYtI7kZu61tNz"), c => c.charCodeAt(0));
+      const SALT = Uint8Array.from(atob("ZvdmBZ363QyopRUE9la2Lw=="), c => c.charCodeAt(0));
+      const IV = Uint8Array.from(atob("alYNSq5S/jVkUmHE"), c => c.charCodeAt(0));
       const ITERATIONS = 600000;
       const form = document.getElementById("unlockForm");
       const input = document.getElementById("password");
@@ -79,18 +79,23 @@
             ["decrypt"]
           );
           const payloadSources = [
+            "https://raw.githubusercontent.com/197954753-cmyk/jinhui-channel-archive-7k3n9/main/payload.bin",
             "https://cdn.jsdelivr.net/gh/197954753-cmyk/jinhui-channel-archive-7k3n9@main/payload.bin",
             "payload.bin"
           ];
           let encrypted;
           for (const source of payloadSources) {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 12000);
             try {
-              const response = await fetch(source, { cache: "no-store" });
+              const response = await fetch(source, { cache: "no-store", signal: controller.signal });
               if (!response.ok) continue;
               encrypted = await response.arrayBuffer();
               if (encrypted.byteLength > 0) break;
             } catch (_) {
               encrypted = undefined;
+            } finally {
+              clearTimeout(timeout);
             }
           }
           if (!encrypted || encrypted.byteLength === 0) throw new Error("加密数据加载失败");
