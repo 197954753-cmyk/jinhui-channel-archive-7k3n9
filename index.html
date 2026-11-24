@@ -63,7 +63,6 @@
         button.disabled = true;
         showStatus("正在验证并解密，请稍候…", "progress");
         try {
-          window.__unlockStage = "import";
           const encoder = new TextEncoder();
           const passwordKey = await crypto.subtle.importKey(
             "raw",
@@ -72,7 +71,6 @@
             false,
             ["deriveKey"]
           );
-          window.__unlockStage = "derive";
           const key = await crypto.subtle.deriveKey(
             { name: "PBKDF2", salt: SALT, iterations: ITERATIONS, hash: "SHA-256" },
             passwordKey,
@@ -80,7 +78,6 @@
             false,
             ["decrypt"]
           );
-          window.__unlockStage = "fetch";
           const payloadSources = [
             "https://fastly.jsdelivr.net/gh/197954753-cmyk/jinhui-channel-archive-7k3n9@9f262db/payload.bin",
             "https://raw.githubusercontent.com/197954753-cmyk/jinhui-channel-archive-7k3n9/9f262db/payload.bin",
@@ -89,7 +86,6 @@
           let encrypted;
           for (let sourceIndex = 0; sourceIndex < payloadSources.length; sourceIndex += 1) {
             const source = payloadSources[sourceIndex];
-            window.__unlockStage = "fetch-" + sourceIndex;
             const controller = new AbortController();
             const timeout = setTimeout(() => controller.abort(), 12000);
             try {
@@ -97,7 +93,6 @@
               if (!response.ok) continue;
               encrypted = await response.arrayBuffer();
               if (encrypted.byteLength > 0) {
-                window.__unlockStage = "payload-" + sourceIndex;
                 break;
               }
             } catch (_) {
@@ -107,13 +102,11 @@
             }
           }
           if (!encrypted || encrypted.byteLength === 0) throw new Error("加密数据加载失败");
-          window.__unlockStage = "decrypt";
           const plaintext = await crypto.subtle.decrypt(
             { name: "AES-GCM", iv: IV, tagLength: 128 },
             key,
             encrypted
           );
-          window.__unlockStage = "write";
           const html = new TextDecoder().decode(plaintext);
           document.open();
           document.write(html);
