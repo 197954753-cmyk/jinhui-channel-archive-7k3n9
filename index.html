@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#073825">
-  <title>金徽酒经销商合作档案</title>
+  <title>金徽酒·经销商名录</title>
   <style>
     :root{--canvas:#f1efe7;--paper:#fffdf8;--ink:#17251f;--muted:#758078;--green:#0b4b33;--green-deep:#073825;--gold:#b99049;--line:#dedfd6}
     *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 8% 0%,rgba(185,144,73,.2),transparent 28rem),linear-gradient(180deg,#f6f4ed,#e7ebe5);color:var(--ink);font-family:"PingFang SC","Microsoft YaHei",sans-serif}
@@ -25,7 +25,7 @@
 <body>
   <main class="gate">
     <section class="card">
-      <div class="brand"><div class="seal" aria-hidden="true">金</div><div><strong>金徽酒 · 渠道档案</strong><span>JINHUI CHANNEL ARCHIVE</span></div></div>
+      <div class="brand"><div class="seal" aria-hidden="true">金</div><div><strong>金徽酒·经销商名录</strong><span>JINHUI DEALER DIRECTORY</span></div></div>
       <h1>访问验证</h1>
       <p class="copy">请输入内部访问口令。数据仅在本机浏览器内解密，不会以明文存储在服务器。</p>
       <form id="unlockForm">
@@ -40,8 +40,8 @@
   <script>
     (() => {
       "use strict";
-      const SALT = Uint8Array.from(atob("bPW1eguCB6KtHndSLJBZog=="), c => c.charCodeAt(0));
-      const IV = Uint8Array.from(atob("pmu0dcXcnohiMXDE"), c => c.charCodeAt(0));
+      const SALT = Uint8Array.from(atob("Q19FD0KcVTQ36Cj0wQTnJQ=="), c => c.charCodeAt(0));
+      const IV = Uint8Array.from(atob("kz2PItKnWPZ8s9MN"), c => c.charCodeAt(0));
       const ITERATIONS = 210000;
       const form = document.getElementById("unlockForm");
       const input = document.getElementById("password");
@@ -79,9 +79,9 @@
             ["decrypt"]
           );
           const payloadSources = [
-            "https://fastly.jsdelivr.net/gh/197954753-cmyk/jinhui-channel-archive-7k3n9@main/payload-v2.bin",
-            "https://raw.githubusercontent.com/197954753-cmyk/jinhui-channel-archive-7k3n9/main/payload-v2.bin",
-            "payload-v2.bin"
+            "https://fastly.jsdelivr.net/gh/197954753-cmyk/jinhui-channel-archive-7k3n9@main/payload-v3.bin",
+            "https://raw.githubusercontent.com/197954753-cmyk/jinhui-channel-archive-7k3n9/main/payload-v3.bin",
+            "payload-v3.bin"
           ];
           let encrypted;
           for (const source of payloadSources) {
