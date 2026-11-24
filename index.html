@@ -40,8 +40,8 @@
   <script>
     (() => {
       "use strict";
-      const SALT = Uint8Array.from(atob("3tSDkUml9jSUiGxD3Cu0FA=="), c => c.charCodeAt(0));
-      const IV = Uint8Array.from(atob("IDN6++fY7Dgc2Zir"), c => c.charCodeAt(0));
+      const SALT = Uint8Array.from(atob("U6UkMaEz1vF/7MLciLozvg=="), c => c.charCodeAt(0));
+      const IV = Uint8Array.from(atob("DwmbYtI7kZu61tNz"), c => c.charCodeAt(0));
       const ITERATIONS = 600000;
       const form = document.getElementById("unlockForm");
       const input = document.getElementById("password");
@@ -78,9 +78,22 @@
             false,
             ["decrypt"]
           );
-          const response = await fetch("payload.bin", { cache: "no-store" });
-          if (!response.ok) throw new Error("加密数据加载失败");
-          const encrypted = await response.arrayBuffer();
+          const payloadSources = [
+            "https://cdn.jsdelivr.net/gh/197954753-cmyk/jinhui-channel-archive-7k3n9@main/payload.bin",
+            "payload.bin"
+          ];
+          let encrypted;
+          for (const source of payloadSources) {
+            try {
+              const response = await fetch(source, { cache: "no-store" });
+              if (!response.ok) continue;
+              encrypted = await response.arrayBuffer();
+              if (encrypted.byteLength > 0) break;
+            } catch (_) {
+              encrypted = undefined;
+            }
+          }
+          if (!encrypted || encrypted.byteLength === 0) throw new Error("加密数据加载失败");
           const plaintext = await crypto.subtle.decrypt(
             { name: "AES-GCM", iv: IV, tagLength: 128 },
             key,
